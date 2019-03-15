@@ -1,12 +1,76 @@
-﻿<Window x:Class="RSADecode.MainWindow"
+﻿<Window x:Class="RSAExample.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:RSADecode"
+        xmlns:local="clr-namespace:RSAExample"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="RSADecriptor" Height="700" Width="1100" MinHeight="700" MinWidth="1100" FontFamily="Comic Sans MS">
+    
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">Начальные значения</TextBlock>
         
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">Открытый ключ Кр</TextBlock>
+            <TextBlock Grid.Column="1" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">n</TextBlock>
+            <TextBox Grid.Column="2" Name="NTB" Margin="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="16" VerticalAlignment="Center">471090785117207</TextBox>
+            <TextBlock Grid.Column="3" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">e</TextBlock>
+            <TextBox Grid.Column="4" Name="ETB" Margin="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="16" VerticalAlignment="Center">12377</TextBox>
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">Шифрование</TextBlock>
+                <TextBlock Grid.Row="1" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">Текст для шифрации</TextBlock>
+                <TextBox Grid.Row="2" Name="ITB" Margin="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="16" TextWrapping="Wrap"/>
+                <Button Grid.Row="3" Name="Encrypt" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16" Margin="10" Click="Encrypt_Click" >Зашифровать</Button>
+                <TextBlock Grid.Row="4" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">Шифротекст</TextBlock>
+                <TextBox Grid.Row="5" Name="CiTB" Margin="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="16" IsReadOnly="True" TextWrapping="Wrap" MouseDoubleClick="CiTB_MouseRightButtonDown"/>
+            </Grid>
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">Дешифрование</TextBlock>
+                <TextBlock Grid.Row="1" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">Шифротекст</TextBlock>
+                <TextBox Grid.Row="2" Name="CTB" Margin="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="16" TextWrapping="Wrap">314999112281065205361706341517321987491098667</TextBox>
+                <Button Grid.Row="3" Name="Baton" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16" Margin="10" Click="Baton_Click">Дешифровать</Button>
+                <TextBlock Grid.Row="4" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">Расшифрованный текст</TextBlock>
+                <TextBox Grid.Row="5" Name="RTB" Margin="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="16" IsReadOnly="True" TextWrapping="Wrap"/>
+            </Grid>
+        </Grid>
+
     </Grid>
+
 </Window>

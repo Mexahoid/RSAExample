@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.489
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSADecode", "RSADecode\RSADecode.csproj", "{F83D816E-2145-444A-8F6F-67690543842F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSAExample", "RSADecode\RSAExample.csproj", "{F83D816E-2145-444A-8F6F-67690543842F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

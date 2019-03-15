@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace RSADecode
+namespace RSAExample
 {
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
@@ -23,6 +23,47 @@ namespace RSADecode
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Baton_Click(object sender, RoutedEventArgs e)
+        {
+            string N = NTB.Text;
+            string E = ETB.Text;
+            string C = CTB.Text;
+            string A = null;
+            try
+            {
+                A = RSADecipher.Instance.DecipherRSA(N, E, C);
+            }
+            catch (Exception strin)
+            {
+                A = strin.Message;
+            }
+
+            RTB.Text = A;
+        }
+
+        private void Encrypt_Click(object sender, RoutedEventArgs e)
+        {
+            string N = NTB.Text;
+            string E = ETB.Text;
+            string S = ITB.Text;
+            string A = null;
+            try
+            {
+                A = RSAEncode.Instance.EncodeRSA(N, E, S);
+            }
+            catch (Exception strin)
+            {
+                A = strin.Message;
+            }
+
+            CiTB.Text = A;
+        }
+
+        private void CiTB_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            CTB.Text = CiTB.Text;
         }
     }
 }
