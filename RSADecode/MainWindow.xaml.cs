@@ -23,6 +23,7 @@ namespace RSAExample
         public MainWindow()
         {
             InitializeComponent();
+            Debugger.Instance.IsLogging = true;
         }
 
         private void Baton_Click(object sender, RoutedEventArgs e)
@@ -30,7 +31,7 @@ namespace RSAExample
             string N = NTB.Text;
             string E = ETB.Text;
             string C = CTB.Text;
-            string A = null;
+            string A;
             try
             {
                 A = RSADecipher.Instance.DecipherRSA(N, E, C);
@@ -48,7 +49,7 @@ namespace RSAExample
             string N = NTB.Text;
             string E = ETB.Text;
             string S = ITB.Text;
-            string A = null;
+            string A;
             try
             {
                 A = RSAEncode.Instance.EncodeRSA(N, E, S);

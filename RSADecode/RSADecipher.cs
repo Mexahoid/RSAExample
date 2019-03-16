@@ -137,9 +137,20 @@ namespace RSAExample
         {
             StringBuilder deciphered = new StringBuilder();
 
+            var dbg = Debugger.Instance;
+            dbg.Log("Дешифровка");
+            dbg.Log("n = " + sN);
+            dbg.Log("e = " + sE);
+            dbg.Log("c = " + sC);
+
             ulong n = ParseNum(sN);
             ulong e = ParseNum(sE);
             ulong[] dpq = GetD(n, e);
+
+            dbg.Log("d = " + dpq[0]);
+            dbg.Log("p = " + dpq[1]);
+            dbg.Log("q = " + dpq[2]);
+
             StringBuilder sb = new StringBuilder();
 
             for (int i = 0; i < sC.Length; i += sN.Length)
@@ -151,15 +162,37 @@ namespace RSAExample
                 }
                 BigInteger c = ParseCipher(sC.Substring(i, l));
                 BigInteger m = BigInteger.ModPow(c, dpq[0], n);
+                dbg.Log($"Подстрока от {i} до {i + l}");
+                dbg.Log($"m = {m}");
+                dbg.Log($"c = {c}");
                 BigInteger bc = BigInteger.ModPow(m, e, n);
+                dbg.Log($"bc = {bc}");
                 sb.Append(m);
             }
 
-            var arr = ConvertToChars(sb.ToString());
-            foreach (char c in arr)
+            dbg.Log("Интовая форма");
+            dbg.Log(sb);
+            try
             {
-                deciphered.Append(c);
+                var arr = ConvertToChars(sb.ToString());
+                foreach (char c in arr)
+                {
+                    deciphered.Append(c);
+                }
             }
+            catch
+            {
+                dbg.Log("Шифротекст неверно преобразован");
+                dbg.Log('\n');
+                dbg.GenerateLog();
+                throw;
+            }
+
+            dbg.Log("Сообщение");
+            dbg.Log(deciphered);
+            dbg.Log('\n');
+
+            dbg.GenerateLog();
 
             deciphered.Append($"\nd = {dpq[0]}\np = {dpq[1]}\nq = {dpq[2]}");
             
