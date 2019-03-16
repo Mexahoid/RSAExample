@@ -26,30 +26,7 @@ namespace RSAExample
         /// Закрытый конструктор класса.
         /// </summary>
         private RSADecipher(){}
-
-        /// <summary>
-        /// Метод парсинга числа в ulong.
-        /// </summary>
-        /// <param name="txt">Текстовое представление числа.</param>
-        /// <returns>Возвращает ulong.</returns>
-        private ulong ParseNum(string txt)
-        {
-            if(!ulong.TryParse(txt, out ulong u))
-                throw new FormatException("Неверный формат числа.");
-            return u;
-        }
-
-        /// <summary>
-        /// Метод парсинга шифротекста в число BigInteger;
-        /// </summary>
-        /// <param name="sC">Текстовое представление шифротекста.</param>
-        /// <returns>Возвращает BigInteger.</returns>
-        private BigInteger ParseCipher(string sC)
-        {
-            if (!BigInteger.TryParse(sC, out BigInteger a))
-                throw new FormatException("Неверный формат шифротекста.");
-            return a;
-        }
+        
 
         /// <summary>
         /// Превращает шифротекст в набор символов.
@@ -143,8 +120,10 @@ namespace RSAExample
             dbg.Log("e = " + sE);
             dbg.Log("c = " + sC);
 
-            ulong n = ParseNum(sN);
-            ulong e = ParseNum(sE);
+            var nl = NumericLogics.Instance;
+
+            ulong n = nl.ParseNum(sN);
+            ulong e = nl.ParseNum(sE);
             ulong[] dpq = GetD(n, e);
 
             dbg.Log("d = " + dpq[0]);
@@ -153,23 +132,21 @@ namespace RSAExample
 
             StringBuilder sb = new StringBuilder();
 
-            for (int i = 0; i < sC.Length; i += sN.Length)
+
+            StringBuilder ssb = new StringBuilder(sC);
+            while (ssb.Length > 0)
             {
-                int l = sN.Length;
-                if (i + l > sC.Length)
-                {
-                    l -= i + l - sC.Length;
-                }
-                BigInteger c = ParseCipher(sC.Substring(i, l));
+                ulong c = nl.CheckParseBlock(ssb, sN);
+                
                 BigInteger m = BigInteger.ModPow(c, dpq[0], n);
-                dbg.Log($"Подстрока от {i} до {i + l}");
+                dbg.Log($"Подстрока c: {c}");
                 dbg.Log($"m = {m}");
-                dbg.Log($"c = {c}");
                 BigInteger bc = BigInteger.ModPow(m, e, n);
                 dbg.Log($"bc = {bc}");
+
                 sb.Append(m);
             }
-
+            
             dbg.Log("Интовая форма");
             dbg.Log(sb);
             try

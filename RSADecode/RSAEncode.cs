@@ -29,45 +29,7 @@ namespace RSAExample
         /// </summary>
         private RSAEncode() { }
 
-        /// <summary>
-        /// Метод парсинга числа в ulong.
-        /// </summary>
-        /// <param name="txt">Текстовое представление числа.</param>
-        /// <returns>Возвращает ulong.</returns>
-        private ulong ParseNum(string txt)
-        {
-            if (!ulong.TryParse(txt, out ulong u))
-                throw new FormatException("Неверный формат числа.");
-            return u;
-        }
 
-        private ulong CheckParseBlock(StringBuilder input, string sN)
-        {
-            // Попробовать взять sNl символов.
-            ulong snulong = ParseNum(sN);
-
-            StringBuilder sb = new StringBuilder();
-            int snl = sN.Length;
-            for (int i = 0; i < snl; i++)
-            {
-                sb.Append(input[i]);
-            }
-            ulong sbl = ParseNum(sb.ToString());
-
-            while (sbl > snulong)
-            {
-                sb = new StringBuilder();
-                snl--;
-                for (int i = 0; i < snl; i++)
-                {
-                    sb.Append(input[i]);
-                }
-                sbl = ParseNum(sb.ToString());
-            }
-
-            input.Remove(0, snl);
-            return sbl;
-        }
         
         /// <summary>
         /// Шифрует сообщение по RSA.
@@ -95,28 +57,38 @@ namespace RSAExample
                 throw new ArgumentException("Текст содержит символы нижнего регистра.");
             }
 
-            
 
+            var nl = NumericLogics.Instance;
 
             StringBuilder sb = new StringBuilder();
-            ulong n = ParseNum(sN);
-            ulong e = ParseNum(sE);
+            ulong n = nl.ParseNum(sN);
+            ulong e = nl.ParseNum(sE);
 
-            StringBuilder m = new StringBuilder();
+            StringBuilder mm = new StringBuilder();
             foreach (char t in sS)
             {
                 int ci = t;
-                m.Append(ci.ToString());
+                mm.Append(ci.ToString());
             }
 
-            string sc = m.ToString();
-            StringBuilder ssb = new StringBuilder(sc);
-            ulong sss = CheckParseBlock(ssb, sN);
+            string sc = mm.ToString();
 
             dbg.Log("Интовая форма");
             dbg.Log(sc);
 
-            for (int i = 0; i < sc.Length; i += sN.Length - 1)
+            StringBuilder ssb = new StringBuilder(sc);
+            while (ssb.Length > 0)
+            {
+                ulong m = nl.CheckParseBlock(ssb, sN);
+
+                BigInteger c = BigInteger.ModPow(m, e, n);
+                dbg.Log($"Подстрока m: {m}");
+                dbg.Log($"c = {c}");
+
+                sb.Append(c.ToString());
+            }
+
+            /*for (int i = 0; i < sc.Length; i += sN.Length - 1)
             {
                 int l = sN.Length - 1;
                 if (i + l > sc.Length)
@@ -132,7 +104,7 @@ namespace RSAExample
                 dbg.Log($"c = {c}");
 
                 sb.Append(c.ToString());
-            }
+            }*/
             dbg.Log("Зашифрованное сообщение");
             dbg.Log(sb);
             dbg.Log('\n');
