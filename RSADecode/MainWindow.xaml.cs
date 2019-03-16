@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -65,6 +66,22 @@ namespace RSAExample
         private void CiTB_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
             CTB.Text = CiTB.Text;
+        }
+
+        private void GenerateButton_Click(object sender, RoutedEventArgs e)
+        {
+            var nl = NumericLogics.Instance;
+            try
+            {
+                var pqn = nl.GeneratePrimesAndN(UpperLimit.Text, LowerLimit.Text);
+                pTB.Text = pqn[0].ToString();
+                qTB.Text = pqn[1].ToString();
+                NTB.Text = pqn[2].ToString();
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+            }
         }
     }
 }

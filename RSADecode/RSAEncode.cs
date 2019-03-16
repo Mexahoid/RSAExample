@@ -28,8 +28,6 @@ namespace RSAExample
         /// Закрытый конструктор класса.
         /// </summary>
         private RSAEncode() { }
-
-
         
         /// <summary>
         /// Шифрует сообщение по RSA.
@@ -88,23 +86,6 @@ namespace RSAExample
                 sb.Append(c.ToString());
             }
 
-            /*for (int i = 0; i < sc.Length; i += sN.Length - 1)
-            {
-                int l = sN.Length - 1;
-                if (i + l > sc.Length)
-                {
-                    l -= i + l - sc.Length;
-                }
-
-                string substr = sc.Substring(i, l);
-                BigInteger mm = BigInteger.Parse(substr);
-                BigInteger c = BigInteger.ModPow(mm, e, n);
-                dbg.Log($"Подстрока от {i} до {i + l}");
-                dbg.Log($"m = {mm}");
-                dbg.Log($"c = {c}");
-
-                sb.Append(c.ToString());
-            }*/
             dbg.Log("Зашифрованное сообщение");
             dbg.Log(sb);
             dbg.Log('\n');

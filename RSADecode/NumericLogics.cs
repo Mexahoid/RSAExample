@@ -41,6 +41,25 @@ namespace RSAExample
             return u;
         }
 
+        public BigInteger[] GeneratePrimesAndN(string upperLimit, string lowerLimit)
+        {
+            ulong ul = ParseNum(upperLimit);
+            ulong ll = ParseNum(lowerLimit);
+
+            BigInteger[] pqn = new BigInteger[3];
+
+            var er = EratosthenesSieve.Instance;
+
+            IList<int> primes = er.GeneratePrimesSieveOfEratosthenes((int) ul, (int) ll);
+
+            pqn[0] = (ulong)er.GetRandomPrimeInList(primes);
+            pqn[1] = pqn[0];
+            while(pqn[0] == pqn[1])
+                pqn[1] = (ulong)er.GetRandomPrimeInList(primes);
+            pqn[2] = BigInteger.Multiply(pqn[0], pqn[1]);
+            return pqn;
+        }
+
         /// <summary>
         /// Метод парсинга шифротекста в число BigInteger;
         /// </summary>

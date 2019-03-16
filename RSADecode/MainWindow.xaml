@@ -13,21 +13,70 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">Начальные значения</TextBlock>
+        <TextBlock Grid.Row="0" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" FontStyle="Italic">Начальные значения</TextBlock>
         
         <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <TextBlock Grid.Row="0" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">Открытый ключ Кр</TextBlock>
-            <TextBlock Grid.Column="1" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">n</TextBlock>
-            <TextBox Grid.Column="2" Name="NTB" Margin="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="16" VerticalAlignment="Center">471090785117207</TextBox>
-            <TextBlock Grid.Column="3" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">e</TextBlock>
-            <TextBox Grid.Column="4" Name="ETB" Margin="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="16" VerticalAlignment="Center">12377</TextBox>
+
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" FontStyle="Italic">Генерация</TextBlock>
+
+                <Grid Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">Пределы</TextBlock>
+                    <TextBox Grid.Column="1" Name="LowerLimit" Margin="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="16" VerticalAlignment="Center" Text="100000"/>
+                    <TextBlock Grid.Column="2" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">--</TextBlock>
+                    <TextBox Grid.Column="3" Name="UpperLimit" Margin="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="16" VerticalAlignment="Center" Text="700000"/>
+
+                </Grid>
+
+                <Grid Grid.Column="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Grid.Column="0" Name="GenerateButton" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" Click="GenerateButton_Click">Получить</Button>
+                    <TextBlock Grid.Column="1" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">P</TextBlock>
+                    <TextBox Grid.Column="2" Name="pTB" Margin="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="16" Background="#EEEEEE" VerticalAlignment="Center" IsReadOnly="True"/>
+                    <TextBlock Grid.Column="3" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">Q</TextBlock>
+                    <TextBox Grid.Column="4" Name="qTB" Margin="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="16" Background="#EEEEEE" VerticalAlignment="Center" IsReadOnly="True"/>
+                </Grid>
+            </Grid>
+
+            <Grid Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="0" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" FontStyle="Italic">Открытый ключ Кр</TextBlock>
+                <TextBlock Grid.Column="1" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">n</TextBlock>
+                <TextBox Grid.Column="2" Name="NTB" Margin="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="16" VerticalAlignment="Center">471090785117207</TextBox>
+                <TextBlock Grid.Column="3" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">e</TextBlock>
+                <TextBox Grid.Column="4" Name="ETB" Margin="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="16" VerticalAlignment="Center">12377</TextBox>
+            </Grid>
         </Grid>
 
         <Grid Grid.Row="2">
@@ -50,7 +99,7 @@
                 <TextBox Grid.Row="2" Name="ITB" Margin="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="16" TextWrapping="Wrap"/>
                 <Button Grid.Row="3" Name="Encrypt" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16" Margin="10" Click="Encrypt_Click" >Зашифровать</Button>
                 <TextBlock Grid.Row="4" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">Шифротекст</TextBlock>
-                <TextBox Grid.Row="5" Name="CiTB" Margin="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="16" IsReadOnly="True" TextWrapping="Wrap" MouseDoubleClick="CiTB_MouseRightButtonDown"/>
+                <TextBox Grid.Row="5" Name="CiTB" Margin="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="16" IsReadOnly="True" Background="#EEEEEE" TextWrapping="Wrap" MouseDoubleClick="CiTB_MouseRightButtonDown"/>
             </Grid>
 
             <Grid Grid.Column="1">
@@ -67,7 +116,7 @@
                 <TextBox Grid.Row="2" Name="CTB" Margin="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="16" TextWrapping="Wrap">314999112281065205361706341517321987491098667</TextBox>
                 <Button Grid.Row="3" Name="Baton" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16" Margin="10" Click="Baton_Click">Дешифровать</Button>
                 <TextBlock Grid.Row="4" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">Расшифрованный текст</TextBlock>
-                <TextBox Grid.Row="5" Name="RTB" Margin="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="16" IsReadOnly="True" TextWrapping="Wrap"/>
+                <TextBox Grid.Row="5" Name="RTB" Margin="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="16" Background="#EEEEEE" IsReadOnly="True" TextWrapping="Wrap"/>
             </Grid>
         </Grid>
 

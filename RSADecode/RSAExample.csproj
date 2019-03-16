@@ -57,6 +57,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Debugger.cs" />
+    <Compile Include="EratosthenesSieve.cs" />
     <Compile Include="NumericLogics.cs" />
     <Compile Include="RSADecipher.cs" />
     <Compile Include="RSAEncode.cs" />
