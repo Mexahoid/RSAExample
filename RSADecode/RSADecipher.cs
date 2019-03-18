@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace RSAExample
 {
@@ -16,7 +14,7 @@ namespace RSAExample
         /// Экземпляр класса RSADecipher.
         /// </summary>
         private static RSADecipher _instance;
-        
+
         /// <summary>
         /// Возвращает экземпляр синглтона класса RSADecipher.
         /// </summary>
@@ -25,8 +23,8 @@ namespace RSAExample
         /// <summary>
         /// Закрытый конструктор класса.
         /// </summary>
-        private RSADecipher(){}
-        
+        private RSADecipher() { }
+
 
         /// <summary>
         /// Превращает шифротекст в набор символов.
@@ -35,15 +33,17 @@ namespace RSAExample
         /// <returns>Возвращает char[]</returns>
         private char[] ConvertToChars(string sC)
         {
-            if(sC.Length % 2 != 0)
+            if (sC.Length % 2 != 0)
+            {
                 throw new FormatException("Шифротекст неверно преобразован.");
+            }
 
             char[] arr = new char[sC.Length / 2];
 
             for (int i = 0; i < sC.Length / 2; i++)
             {
                 char first = sC[i * 2];
-                char second = sC[i * 2+ 1];
+                char second = sC[i * 2 + 1];
                 arr[i] = (char)int.Parse($"{first}{second}");
             }
 
@@ -74,14 +74,16 @@ namespace RSAExample
             BigInteger exp = e;
             BigInteger phi = p * q;
             BigInteger d;
-            for (int k = 1;;k++)
+            for (int k = 1; ; k++)
             {
                 BigInteger tphi = k * phi + 1;
                 d = BigInteger.Divide(tphi, e);
                 if (BigInteger.Multiply(d, e) == tphi)
+                {
                     break;
+                }
             }
-            return new []{(ulong)d, p + 1, q + 1};
+            return new[] { (ulong)d, p + 1, q + 1 };
         }
 
         /// <summary>
@@ -91,7 +93,17 @@ namespace RSAExample
         /// <returns>Возвращает List(ulong).</returns>
         private IList<ulong> Factorize(ulong num)
         {
+            //IList<int> lst = EratosthenesSieve.Instance.GeneratePrimesSieveOfEratosthenes((int)num);
+
             List<ulong> factors = new List<ulong>();
+            //foreach (int i in lst)
+            //{
+            //    if (num % (ulong) i != 0)
+            //        continue;
+            //    factors.Add((ulong)i);
+            //    num /= (ulong)i;
+            //}
+
             for (ulong i = 2; i <= num; i++)
             {
                 while (num % i == 0)
@@ -114,13 +126,13 @@ namespace RSAExample
         {
             StringBuilder deciphered = new StringBuilder();
 
-            var dbg = Debugger.Instance;
+            Debugger dbg = Debugger.Instance;
             dbg.Log("Дешифровка");
             dbg.Log("n = " + sN);
             dbg.Log("e = " + sE);
             dbg.Log("c = " + sC);
 
-            var nl = NumericLogics.Instance;
+            NumericLogics nl = NumericLogics.Instance;
 
             ulong n = nl.ParseNum(sN);
             ulong e = nl.ParseNum(sE);
@@ -137,7 +149,7 @@ namespace RSAExample
             while (ssb.Length > 0)
             {
                 ulong c = nl.CheckParseBlock(ssb, sN);
-                
+
                 BigInteger m = BigInteger.ModPow(c, dpq[0], n);
                 dbg.Log($"Подстрока c: {c}");
                 dbg.Log($"m = {m}");
@@ -146,12 +158,12 @@ namespace RSAExample
 
                 sb.Append(m);
             }
-            
+
             dbg.Log("Интовая форма");
             dbg.Log(sb);
             try
             {
-                var arr = ConvertToChars(sb.ToString());
+                char[] arr = ConvertToChars(sb.ToString());
                 foreach (char c in arr)
                 {
                     deciphered.Append(c);
@@ -172,7 +184,7 @@ namespace RSAExample
             dbg.GenerateLog();
 
             deciphered.Append($"\nd = {dpq[0]}\np = {dpq[1]}\nq = {dpq[2]}");
-            
+
             return deciphered.ToString();
         }
 

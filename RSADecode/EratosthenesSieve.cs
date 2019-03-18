@@ -92,7 +92,7 @@ namespace RSAExample
             BitArray bits = SieveOfEratosthenes(upperLimit);
             var primes = new List<int>();
 
-            for (int i = 0, found = 0; i < upperLimit ; i++)
+            for (int i = 0, found = 0; i < bits.Length ; i++)
             {
                 if (!bits[i])
                     continue;
